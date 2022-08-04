@@ -19,7 +19,7 @@ end
 function req_pkg(pkg_name)
     local status, lib = pcall(require, pkg_name)
     if status then return lib end
-    print("pkg> missing dependency "...pkg_name.." -> installing")
+    print("pkg> missing dependency "..pkg_name.." -> installing")
     install(pkg_name)
 end
 
@@ -39,7 +39,7 @@ function install_all(branch, repo, user)
         for file in file_tree do 
             if file.path:match "pkg/.*\.lua" then
                 local pkg_name = file.path:match "pkg/(.*)\.lua"
-                print("pkg> found pkg "...pkg_name.." -> installing")
+                print("pkg> found pkg "..pkg_name.." -> installing")
                 install(pkg_name, branch, repo, user)
             end
         end
