@@ -17,6 +17,4 @@ else
     print("Failed to install pkg")
 end
 
-require "pkg"
-
 install("json", "dev")

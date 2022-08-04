@@ -21,13 +21,13 @@ function install (pkg_name, branch, repo, user)
     end
 end
 
-function req_pkg(pkg_name)
-    local status, lib = pcall(require, pkg_name)
+function req_pkg(...)
+    local status, lib = pcall(require, ...)
     if status then 
         return lib 
     end
-    print("pkg> missing dependency "..pkg_name.." -> installing")
-    install(pkg_name)
+    print("pkg> missing dependency "..arg[0].." -> installing")
+    install(...)
 end
 
 
