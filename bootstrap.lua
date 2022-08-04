@@ -16,5 +16,3 @@ if response_handle.getResponseCode() == 200 then
 else
     print("Failed to install pkg")
 end
-
-install("json", "dev")

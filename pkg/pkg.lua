@@ -22,7 +22,7 @@ function install (pkg_name, branch, repo, user)
 end
 
 function req_pkg(...)
-    local status, lib = pcall(require, ...)
+    local status, lib = pcall(require, arg[0])
     if status then 
         return lib 
     end
@@ -31,7 +31,7 @@ function req_pkg(...)
 end
 
 
-json = req_pkg("json")
+json = req_pkg("json", "dev")
 
 
 function install_all(branch, repo, user)
