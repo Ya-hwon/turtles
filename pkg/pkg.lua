@@ -1,3 +1,8 @@
+function remove_all()
+    fs.delete("/startup.lua")
+    fs.delete("/pkg")
+end
+
 function install (pkg_name, branch, repo, user)
     branch = branch or "master"
     repo = repo or "turtles"
