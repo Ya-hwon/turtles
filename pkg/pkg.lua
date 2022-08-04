@@ -6,7 +6,7 @@ function install (pkg_name, branch, repo, user)
     local content = http.get("https://raw.githubusercontent.com/"..user.."/"..repo.."/"..branch.."/pkg/"..pkg_name..".lua")
 
     if content.getResponseCode() == 200 then
-        local file = fs.open("/pkg/"..pkg_name, "w")
+        local file = fs.open("/pkg/"..pkg_name..".lua", "w")
         file.write(content.readAll())
         file.close()
         print("pkg> installed "..pkg_name)
@@ -18,13 +18,15 @@ end
 
 function req_pkg(pkg_name)
     local status, lib = pcall(require, pkg_name)
-    if status then return lib end
+    if status then 
+        return lib 
+    end
     print("pkg> missing dependency "..pkg_name.." -> installing")
     install(pkg_name)
 end
 
 
-req_pkg("json")
+json = req_pkg("json")
 
 
 function install_all(branch, repo, user)
@@ -36,7 +38,7 @@ function install_all(branch, repo, user)
     if file_list.getResponseCode() == 200 then
         local file_tree = json.decode(file_list.readAll()).tree
         
-        for file in file_tree do 
+        for _,file in ipairs(file_tree) do 
             if file.path:match "pkg/.*\.lua" then
                 local pkg_name = file.path:match "pkg/(.*)\.lua"
                 print("pkg> found pkg "..pkg_name.." -> installing")

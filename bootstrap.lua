@@ -6,7 +6,7 @@ startup_handle.close()
 fs.makeDir("pkg")
 shell.setDir("/pkg")
 
-local response_handle = http.get("https://raw.githubusercontent.com/Ya-hwon/turtles/master/pkg/pkg.lua")
+local response_handle = http.get("https://raw.githubusercontent.com/Ya-hwon/turtles/dev/pkg/pkg.lua")
 
 if response_handle.getResponseCode() == 200 then
     local pkg_handle = fs.open("/pkg/pkg.lua", "w")
@@ -19,4 +19,4 @@ end
 
 require "/pkg"
 
-install("json")
+install("json", "dev")
