@@ -9,14 +9,16 @@ settings.set("user", "Ya-hwon")
 settings.save(".settings")
 
 startup_handle.writeLine(
-    "\
-    settings.load(\".settings\")\
-    "
+"\
+settings.load(\".settings\")\n\
+for _,file in ipairs(fs.list(\"/pkg\")) do\n\
+    os.loadAPI(\"/pkg/\"..file)\n\
+end"
 )
 startup_handle.writeLine(
-    "while true do\n\
-        print(pcall(loadstring(\"return \"..io.read())))\n\
-    end"
+"while true do\n\
+    print(pcall(loadstring(\"return \"..io.read())))\n\
+end"
 )
 startup_handle.close()
 

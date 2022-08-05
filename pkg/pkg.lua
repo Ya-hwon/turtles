@@ -23,7 +23,7 @@ function install (pkg_name, branch, repo, user)
 end
 
 function req_pkg(pkg_name, ...)
-    local status, lib = pcall(require, pkg_name)
+    local status, lib = pcall(require, "/pkg/"..pkg_name)
     if status then 
         return lib 
     end
@@ -32,13 +32,13 @@ function req_pkg(pkg_name, ...)
 end
 
 
-json = req_pkg("json", "dev")
+json = req_pkg("json", settings.get("branch") or "master")
 
 
 function install_all(branch, repo, user)
-    branch = branch or "master"
-    repo = repo or "turtles"
-    user = user or "Ya-hwon"
+    branch = branch or settings.get("branch") or "master"
+    repo = repo or settings.get("repo") or "turtles"
+    user = user or settings.get("user") or "Ya-hwon"
 
     local file_list = http.get("https://api.github.com/repos/"..user.."/"..repo.."/git/trees/"..branch.."?recursive=1")
     if file_list.getResponseCode() == 200 then
