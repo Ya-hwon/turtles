@@ -1,7 +1,23 @@
 shell.setDir("/")
 local startup_handle = fs.open("startup.lua", "w")
 startup_handle.writeLine("shell.setPath(shell.path()..\":/pkg\")")
-startup_handle.writeLine("while true do\npcall(loadstring(io.read()))\nend")
+
+settings.set("branch", "dev")
+settings.set("repo", "turtles")
+settings.set("user", "Ya-hwon")
+
+settings.save(".settings")
+
+startup_handle.writeLine(
+    "\
+    settings.load(\".settings\")\
+    "
+)
+startup_handle.writeLine(
+    "while true do\n\
+        print(pcall(loadstring(\"return \"..io.read())))\n\
+    end"
+)
 startup_handle.close()
 
 fs.makeDir("pkg")
@@ -17,3 +33,5 @@ if response_handle.getResponseCode() == 200 then
 else
     print("Failed to install pkg")
 end
+
+os.reboot()

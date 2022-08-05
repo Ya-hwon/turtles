@@ -1,12 +1,13 @@
 function remove_all()
     fs.delete("/startup.lua")
+    fs.delete(".settings")
     fs.delete("/pkg")
 end
 
 function install (pkg_name, branch, repo, user)
-    branch = branch or "master"
-    repo = repo or "turtles"
-    user = user or "Ya-hwon"
+    branch = branch or settings.get("branch") or "master"
+    repo = repo or settings.get("repo") or "turtles"
+    user = user or settings.get("user") or "Ya-hwon"
 
     local content = http.get("https://raw.githubusercontent.com/"..user.."/"..repo.."/"..branch.."/pkg/"..pkg_name..".lua")
 
